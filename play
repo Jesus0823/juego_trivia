@@ -1,0 +1,732 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import *
+from tkinter import messagebox
+import pymysql
+
+
+
+def juego():
+    global window
+    
+    window = tk.Tk()
+    window.geometry("400x400")
+    window.title("Welcome to Trivia")
+    window.iconbitmap("R.ico")
+    window.resizable(0,0)
+    
+    
+    image = PhotoImage(file="R.gif")
+    image=image.subsample(3,3)
+    e2=tk.Label(window, image=image)
+    e2.pack(padx=1, pady=1, ipadx=1, ipady=1, fill=tk.X)
+    
+    e1=tk.Label(window,text="Bienvenid@ \n PARTY TRIVIA ",font=("times roman",14), bg="coral", fg="black")
+    e1.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X) 
+    
+    login_bot = ttk.Button(window, text="Iniciar seccion", command=inicio)
+    login_bot.pack(padx=3, pady=3, ipadx=3, ipady=3, fill=tk.X)
+    
+    registrar_bot = ttk.Button(window, text="Registrar", command=registrar)
+    registrar_bot.pack(padx=3, pady=3, ipadx=3, ipady=3, fill=tk.X)
+        
+    window.mainloop()
+    
+
+def inicio():
+    global windowone
+    
+    windowone = Toplevel(window)
+    windowone.geometry("260x320")
+    windowone.title("Iniciar Seccion")
+    windowone.iconbitmap("R.ico")
+    windowone.resizable(0,0)
+    
+    e3=tk.Label(windowone,text="Por Favor Ingrese \nUsuario Y password \nAcontinuacion: ",font=("times roman",14), bg="coral", fg="black")
+    e3.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X) 
+    
+    global user 
+    global password 
+    
+    user = StringVar()
+    password = StringVar()
+
+
+    global user_entry
+    global password_entry 
+    
+    e4=tk.Label(windowone,text="Usuario: ",font=("times roman",14), bg="coral", fg="black")
+    e4.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X) 
+    user_entry = ttk.Entry(windowone, textvariable=user)
+    user_entry.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    
+    e5=tk.Label(windowone,text="Password: ",font=("times roman",14), bg="coral", fg="black")
+    e5.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    password_entry = ttk.Entry(windowone, show="*",textvariable=password)
+    password_entry.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    
+    iniciar_sec = ttk.Button(windowone, text="Iniciar seccion", command= lambda: [ validacion(), cerrarventana(), preguntas()])
+    iniciar_sec.pack(padx=3, pady=3, ipadx=3, ipady=3, fill=tk.X)
+    
+def registrar():
+    global windowtwo
+    windowtwo = Toplevel(window)
+    windowtwo.geometry("260x320")
+    windowtwo.title("registrar")
+    windowtwo.iconbitmap("R.ico")
+    windowtwo.resizable(0,0)
+
+ 
+    global nameuser
+    global passuser
+    
+    nameuser = StringVar()
+    passuser = StringVar()
+    
+    e6=tk.Label(windowtwo,text="Por favor ingrese \nusuario y password \npara iniciar el Juego: ",font=("times roman",14), bg="coral", fg="black")
+    e6.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    
+    e7=tk.Label(windowtwo,text="Usuario: ",font=("times roman",14), bg="coral", fg="black")
+    e7.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X) 
+    nameuser = ttk.Entry(windowtwo)
+    nameuser.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    
+    e8=tk.Label(windowtwo,text="Password: ",font=("times roman",14), bg="coral", fg="black")
+    e8.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    passuser = ttk.Entry(windowtwo, show="*")
+    passuser.pack(padx=5, pady=5, ipadx=5, ipady=5, fill=tk.X)
+    
+    registrar = ttk.Button(windowtwo, text="registrar", command=db)
+    registrar.pack(padx=3, pady=3, ipadx=3, ipady=3, fill=tk.X)
+
+def cerrarventana():
+    window.destroy()
+    
+def evento1():
+    Button.config( text='',fg='black' , bg='dark turquoise')
+    
+def preguntas():
+        global total
+        
+        y=0
+        
+        n= ttk.Notebook()
+        f1= ttk.Frame(n)
+        f2= ttk.Frame(n)
+        f3= ttk.Frame(n)
+        f4= ttk.Frame(n)
+        f5= ttk.Frame(n)
+        f6= ttk.Frame(n)
+        f7= ttk.Frame(n)
+        f8= ttk.Frame(n)
+        f9= ttk.Frame(n)
+        f10= ttk.Frame(n)
+        f11= ttk.Frame(n)
+        f12= ttk.Frame(n)
+        f13= ttk.Frame(n)
+        f14= ttk.Frame(n)
+        f15= ttk.Frame(n)
+        f16= ttk.Frame(n)
+        f17= ttk.Frame(n)
+        f18= ttk.Frame(n)
+        f19= ttk.Frame(n)
+        f20= ttk.Frame(n)
+        f21= ttk.Frame(n)
+        f22= ttk.Frame(n)
+        f23= ttk.Frame(n)
+        f24= ttk.Frame(n)
+        f25= ttk.Frame(n)
+        f26= ttk.Frame(n)
+        f27= ttk.Frame(n)
+        f28= ttk.Frame(n)
+        f29= ttk.Frame(n)
+        f30= ttk.Frame(n)
+        f31= ttk.Frame(n)
+        f32= ttk.Frame(n)
+        f33= ttk.Frame(n)
+        f34= ttk.Frame(n)
+        f35= ttk.Frame(n)
+        f36= ttk.Frame(n)
+        
+        window= ttk.Frame(n)
+        
+
+        
+        def main(x):
+            global total
+            n.add(f1, text="1")
+            n.add(f2, text="2")
+            n.add(f3, text="3")
+            n.add(f4, text="4")
+            n.add(f5, text="5")
+            n.add(f6, text="6")
+            n.add(f7, text="7")
+            n.add(f8, text="8")
+            n.add(f9, text="9")
+            n.add(f10, text="10")
+            n.add(f11, text="11")
+            n.add(f12, text="12")
+            n.add(f13, text="13")
+            n.add(f14, text="14")
+            n.add(f15, text="15")
+            n.add(f16, text="16")
+            n.add(f17, text="17")
+            n.add(f18, text="18")
+            n.add(f19, text="19")
+            n.add(f20, text="20")
+            n.add(f21, text="21")
+            n.add(f22, text="22")
+            n.add(f23, text="23")
+            n.add(f24, text="24")
+            n.add(f25, text="25")
+            n.add(f26, text="26")
+            n.add(f27, text="27")
+            n.add(f28, text="28")
+            n.add(f29, text="29")
+            n.add(f30, text="30")
+            n.add(f31, text="31")
+            n.add(f32, text="32")
+            n.add(f33, text="33")
+            n.add(f34, text="34")
+            n.add(f35, text="35")
+            n.add(f36, text="36")
+        
+        
+            total= ttk.Label(window, text="0")
+        
+        
+            Label(f1, text="Que es tkinter?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f1, text="interfaz de usuarios guiada", bg='pale green',fg='brown',width='50',height='1',command= correct).grid(row=3,column=1)
+            Button(f1, text="Una variable",bg='pale green', fg='brown',width='50',height='1', command=incorrect).grid(row=3,column=2)
+            Button(f1, text="Una funcion", bg='pale green',fg='brown',width='50',height='1', command=incorrect).grid(row=3,column=3)
+        
+        
+            Label(f2, text="Que es Turtle?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f2,text="Una impresion",bg='pale green', fg='brown',width='50',height='1',command=incorrect2).grid(row=3,column=1)
+            Button(f2, text="Un Modulo",bg='pale green', fg='brown',width='50',height='1', command=correct2).grid(row=3,column=2)
+            Button(f2, text="Valor Booleano",bg='pale green', fg='brown',width='50',height='1', command=incorrect2).grid(row=3,column=3)
+        
+            Label(f3, text="Que Hace el comando 'print'?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f3, text="Crear una ventana",bg='pale green', fg='brown',width='50',height='1',command=incorrect3).grid(row=3,column=1)
+            Button(f3, text="Mostrar un mensaje en la terminal",bg='pale green', fg='brown',width='50',height='1', command=correct3).grid(row=3,column=2)
+            Button(f3, text="Imprimir en una impresora",bg='pale green', fg='brown',width='50',height='1', command=incorrect3).grid(row=3,column=3)
+        
+            Label(f4, text="Que es python ?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f4, text="un lenguaje de programación multiparadigma",bg='pale green', fg='brown',width='50',height='1',command=correct4).grid(row=3,column=1)
+            Button(f4, text="Una placa de circuitos",bg='pale green', fg='brown',width='50',height='1', command=incorrect4).grid(row=3,column=2)
+            Button(f4, text="Una aplicacion ",bg='pale green', fg='brown',width='50',height='1', command=incorrect4).grid(row=3,column=3)
+        
+        
+            Label(f5, text="¿Qué hace el comando 'from ____ import'?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f5, text="Importar una imagen",bg='pale green', fg='brown',width='50',height='1',command=incorrect5).grid(row=3,column=1)
+            Button(f5, text="Importar un texto",bg='pale green', fg='brown',width='50',height='1', command=incorrect5).grid(row=3,column=2)
+            Button(f5, text="Importar un modulo" ,bg='pale green',fg='brown',width='50',height='1', command=correct5).grid(row=3,column=3)
+        
+            Label(f6, text="Cuál de estos es un valor booleano?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f6, text="Enter",bg='pale green', fg='brown',width='50',height='1',command=incorrect6).grid(row=3,column=1)
+            Button(f6, text="Esc", bg='pale green',fg='brown',width='50',height='1', command=incorrect6).grid(row=3,column=2)
+            Button(f6, text="True",bg='pale green', fg='brown',width='50',height='1', command=correct6).grid(row=3,column=3)
+            
+            Label(f7, text="como de declara un cuadro de texto 'Entry'" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f7, text="variable.Entry=()",bg='pale green', fg='brown',width='40',height='1',command=incorrect7).grid(row=3,column=1)
+            Button(f7, text="variable = Entry()",bg='pale green', fg='brown',width='40',height='1', command=incorrect7).grid(row=3,column=2)
+            Button(f7, text="text = tk.Entry(root)",bg='pale green', fg='brown',width='40',height='1', command=correct7).grid(row=3,column=3)
+            
+            Label(f8, text="la UTS con que universidad Firmo convenio academico?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f8, text="universidad corporativa de colombia", bg='pale green',fg='brown',width='40',height='1',command=incorrect8).grid(row=3,column=1)
+            Button(f8, text="universidad industril de santander",bg='pale green', fg='brown',width='40',height='1', command=incorrect8).grid(row=3,column=2)
+            Button(f8, text="Universidad Catolicad de Murcia", bg='pale green',fg='brown',width='40',height='1', command=correct8).grid(row=3,column=3)
+            
+            Label(f9, text="ES Unos de los deberes de los estudiantes de la UTS :?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f9, text="Cumplir con los estatutos y reglamentos de la institucion" ,bg='pale green', fg='brown',width='50',height='1',command=correct9).grid(row=3,column=1)
+            Button(f9, text="elegir y ser elegido" ,bg='pale green', fg='brown',width='40',height='1', command=incorrect9).grid(row=3,column=2)
+            Button(f9, text="ejercer libertad de critica" , bg='pale green',fg='brown',width='40',height='1', command=incorrect9).grid(row=3,column=3)
+            
+            Label(f10, text="nombre del rector de la UTS:?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f10, text="OSCAR BUENAVENTURA" ,bg='pale green', fg='brown',width='40',height='1',command=incorrect10).grid(row=3,column=1)
+            Button(f10, text="DANIEL PUNTAGALLO" , bg='pale green',fg='brown',width='40',height='1', command=incorrect10).grid(row=3,column=2)
+            Button(f10, text="OMAR LENGERKE" , bg='pale green',fg='brown',width='40',height='1', command=correct10).grid(row=3,column=3)
+            
+            Label(f11, text="Qué hace el comando tkinter.scrolledtext?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f11, text="utilidades  para ayudar a trabajar con fuentes",bg='pale green', fg='brown',width='40',height='1',command=incorrect11).grid(row=3,column=1)
+            Button(f11, text="cuadro de dialogo",bg='pale green', fg='brown',width='40',height='1', command=incorrect11).grid(row=3,column=2)
+            Button(f11, text=" barra de desplazamiento vertical", bg='pale green',fg='brown',width='40',height='1', command=correct11).grid(row=3,column=3)
+            
+            Label(f12, text="Qué hace el comando tkinter.font?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f12, text="cuadro de dialogo simples", bg='pale green',fg='brown',width='40',height='1',command=incorrect12).grid(row=3,column=1)
+            Button(f12, text="graficos de tortuga en una ventana",bg='pale green', fg='brown',width='40',height='1', command=incorrect12).grid(row=3,column=2)
+            Button(f12, text="Utilidades para ayudar a trabajar con fuentes.",bg='pale green', fg='brown',width='40',height='1', command=correct12).grid(row=3,column=3)
+            
+            Label(f13, text="¿Qué hace el comando tkinter.messagebox?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f13, text="cuadro de dialogo que permite elegir un color",bg='pale green', fg='brown',width='40',height='1',command=incorrect13).grid(row=3,column=1)
+            Button(f13, text="clase base para cuadros", bg='pale green',fg='brown',width='40',height='1', command=incorrect13).grid(row=3,column=2)
+            Button(f13, text="acceso a cuadros de dialogos estandar en Tk",bg='pale green', fg='brown',width='40',height='1', command=correct13).grid(row=3,column=3)
+            
+            Label(f14, text="Qué hace el comando tkinter.filedialog?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f14, text="graficos de tortuga en una ventana", bg='pale green',fg='brown',width='40',height='1',command=incorrect14).grid(row=3,column=1)
+            Button(f14, text="soporte de arrastrar y soltar", bg='pale green',fg='brown',width='40',height='1', command=incorrect14).grid(row=3,column=2)
+            Button(f14, text="Cuadros de diálogo por defecto, archivo para abrir", bg='pale green',fg='brown',width='40',height='1', command=correct14).grid(row=3,column=3)
+            
+            Label(f15, text="Qué hace el comando classcomand ?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f15, text="configurar la apariencia del widget ", bg='pale green',fg='brown',width='40',height='1',command=incorrect15).grid(row=3,column=1)
+            Button(f15, text="Indica dónde debe colocar el empaquetador", bg='pale green',fg='brown',width='40',height='1', command=incorrect15).grid(row=3,column=2)
+            Button(f15, text="denota qué tipo de widget hacer (botón,etiqueta)", bg='pale green',fg='brown',width='40',height='1', command=correct15).grid(row=3,column=3)
+            
+            Label(f16,text="Qué hace el comando expand?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f16, text="Tipo de anclaje",bg='pale green', fg='brown',width='40',height='1',command=incorrect16).grid(row=3,column=1)
+            Button(f16, text="Una distancia que designa el relleno interno",bg='pale green', fg='brown',width='40',height='1', command=incorrect16).grid(row=3,column=2)
+            Button(f16, text="Un valor booleano, 0 o 1.", bg='pale green',fg='brown',width='40',height='1', command=correct16).grid(row=3,column=3)
+            
+            Label(f17, text="Qué hace el comando padx y pady?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f17, text="Un valor booleano, 0 o 1.", bg='pale green',fg='brown',width='40',height='1',command=incorrect17).grid(row=3,column=1)
+            Button(f17, text="Tipo de anclaje.", bg='pale green',fg='brown',width='50',height='1', command=incorrect17).grid(row=3,column=2)
+            Button(f17, text="Una distancia que designa el relleno externo.",bg='pale green', fg='brown',width='40',height='1', command=correct17).grid(row=3,column=3)
+            
+            Label(f18, text="Qué hace el comando geometry?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f18, text="Determina cuál será el estilo de borde de un widget.", bg='pale green',fg='brown',width='40',height='1',command=incorrect18).grid(row=3,column=1)
+            Button(f18, text="Es una cadena de caracteres ",bg='pale green', fg='brown',width='40',height='1', command=incorrect18).grid(row=3,column=2)
+            Button(f18, text="Es una cadena de caracteres donde el ancho y la altura se miden en px,", bg='pale green',fg='brown',width='60',height='1', command=correct18).grid(row=3,column=3)
+            
+            Label(f19, text="Qué hace  el comando relief?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f19, text="Es un formato de lista para los nombres de fuentes",bg='pale green', fg='brown',width='40',height='1',command=incorrect19).grid(row=3,column=1)
+            Button(f19, text="Es una cadena de caracteres del estilo",bg='pale green', fg='brown',width='40',height='1', command=incorrect19).grid(row=3,column=2)
+            Button(f19, text="Determina cuál será el estilo de borde de un widget", bg='pale green',fg='brown',width='40',height='1', command=correct19).grid(row=3,column=3)
+            
+            Label(f20, text="Qué hace el comando justify?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f20, text="Es una cadena que denota el tipo de evento objetivo",bg='pale green', fg='brown',width='40',height='1',command=incorrect20).grid(row=3,column=1)
+            Button(f20, text="Determina cuál será el estilo de borde de un widget.",bg='pale green', fg='brown',width='40',height='1', command=incorrect20).grid(row=3,column=2)
+            Button(f20, text="Los valores legales son las cadenas de caracteres",bg='pale green', fg='brown',width='40',height='1', command=correct20).grid(row=3,column=3)
+            
+            
+            Label(f21, text="Qué hace el comando Label?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f21, text="crea un cuadro para insertar texto", bg='pale green',fg='brown',width='40',height='1',command=incorrect21).grid(row=3,column=1)
+            Button(f21, text="crea un boton ", bg='pale green',fg='brown',width='40',height='1', command=incorrect21).grid(row=3,column=2)
+            Button(f21, text="crea una etiqueta", bg='pale green',fg='brown',width='40',height='1', command=correct21).grid(row=3,column=3)
+            
+            Label(f22, text="cual es la opcion correcta de usar .pack?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f22, text="etiqueta.pack(row=1, column=1)",bg='pale green', fg='brown',width='50',height='1',command=incorrect22).grid(row=3,column=1)
+            Button(f22, text=".pack()=etiqueta", bg='pale green',fg='brown',width='50',height='1', command=incorrect22).grid(row=3,column=2)
+            Button(f22, text="etiqueta.pack()", bg='pale green',fg='brown',width='50',height='1', command=correct22).grid(row=3,column=3)
+            
+            Label(f23, text="para que se usa el comando texto.delete(5, tk.END)?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f23, text="editar desde el primer carácter hasta el ultimo", bg='pale green',fg='brown',width='50',height='1',command=incorrect23).grid(row=3,column=1)
+            Button(f23, text="agregar desde el quinto carácter hasta el ultimo", bg='pale green',fg='brown',width='50',height='1', command=incorrect23).grid(row=3,column=2)
+            Button(f23, text="borrar desde el quinto carácter hasta el ultimo", bg='pale green',fg='brown',width='50',height='1', command=correct23).grid(row=3,column=3)
+            
+            Label(f24, text="para que se usa el comando icursor(index)?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f24, text="Devuelve el texto del campo de texto",bg='pale green', fg='brown',width='50',height='1',command=incorrect24).grid(row=3,column=1)
+            Button(f24, text="Indica donde colocar la cadena o caracter",bg='pale green', fg='brown',width='50',height='1', command=incorrect24).grid(row=3,column=2)
+            Button(f24, text="Indica donde colocar el cursor", bg='pale green',fg='brown',width='50',height='1', command=correct24).grid(row=3,column=3)
+            
+            Label(f25, text="para que se usa el comando insert(index, string)?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f25, text="Indica donde colocar la cadena o caracter", bg='pale green',fg='brown',width='50',height='1',command=incorrect25).grid(row=3,column=1)
+            Button(f25, text="Cadena o caracter a ingresar", bg='pale green',fg='brown',width='50',height='1', command=incorrect25).grid(row=3,column=2)
+            Button(f25, text=" todas las anteriores", bg='pale green',fg='brown',width='50',height='1', command=correct25).grid(row=3,column=3)
+            
+            Label(f26, text="para que se usa el comando checkbutton.select()?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f26, text="una forma de desmarcar nuestro ‘Checkbutton’", bg='pale green',fg='brown',width='50',height='1',command=incorrect26).grid(row=3,column=1)
+            Button(f26, text="una casilla de verificación asociado a un comando",bg='pale green', fg='brown',width='50',height='1', command=incorrect26).grid(row=3,column=2)
+            Button(f26, text="una forma de marcar nuestro ‘Checkbutton’", bg='pale green',fg='brown',width='50',height='1', command=correct26).grid(row=3,column=3)
+            
+            Label(f27, text="Qué hace el comando pywin32?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f27, text="Una biblioteca de trazado numérico", bg='pale green',fg='brown',width='50',height='1',command=incorrect27).grid(row=3,column=1)
+            Button(f27, text="Un motor de animación y creación de juegos en 3D",bg='pale green', fg='brown',width='50',height='1', command=incorrect27).grid(row=3,column=2)
+            Button(f27, text="Una biblioteca de Python que proporciona algunos métodos",bg='pale green', fg='brown',width='50',height='1', command=correct27).grid(row=3,column=3)
+            
+            Label(f28, text="Qué hace el comando sympy?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f28, text="Un conjunto de herramientas GUI para Python", bg='pale green',fg='brown',width='50',height='1',command=incorrect28).grid(row=3,column=1)
+            Button(f28, text="Otra biblioteca GUI para Python",bg='pale green', fg='brown',width='50',height='1', command=incorrect28).grid(row=3,column=2)
+            Button(f28, text="Sympy puede hacer evaluaciones algebraica",bg='pale green', fg='brown',width='50',height='1', command=correct28).grid(row=3,column=3)
+            
+            Label(f29, text="Qué hace el comando pillow?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f29, text="Esta librería se usa para parsear código de xml y htm", bg='pale green',fg='brown',width='50',height='1',command=incorrect29).grid(row=3,column=1)
+            Button(f29, text="Una biblioteca muy polémica para gestionar bases de datoss",bg='pale green', fg='brown',width='50',height='1', command=incorrect29).grid(row=3,column=2)
+            Button(f29, text="Un amistoso fork de PIL (Python Imaging Library", bg='pale green',fg='brown',width='50',height='1', command=correct29).grid(row=3,column=3)
+            
+            Label(f30, text="Qué hace el comando matplotlib?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f30, text="Especifica el número de filas que deben estar visibles",bg='pale green', fg='brown',width='50',height='1',command=incorrect30).grid(row=3,column=1)
+            Button(f30, text="Especifica el relleno interno del widget.", bg='pale green',fg='brown',width='50',height='1', command=incorrect30).grid(row=3,column=2)
+            Button(f30, text="Una biblioteca de trazado numérico", bg='pale green',fg='brown',width='50',height='1', command=correct30).grid(row=3,column=3)
+            
+            
+            Label(f31, text="Qué hace el comando columns?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f31, text="Especifica el relleno interno del widget.", bg='pale green',fg='brown',width='50',height='1',command=incorrect20).grid(row=3,column=1)
+            Button(f31, text="Especifica el número de filas que deben estar visibles", bg='pale green',fg='brown',width='50',height='1', command=incorrect20).grid(row=3,column=2)
+            Button(f31, text="Una lista de identificadores de columna,", bg='pale green',fg='brown',width='50',height='1', command=correct20).grid(row=3,column=3)
+            
+            
+            Label(f32, text="Qué hace el comando height?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f32, text="Una lista que contiene cero o más de los siguientes valores", bg='pale green',fg='brown',width='50',height='1',command=incorrect21).grid(row=3,column=1)
+            Button(f32, text="especifican qué columnas de datos se muestran y el orden ", bg='pale green',fg='brown',width='50',height='1', command=incorrect21).grid(row=3,column=2)
+            Button(f32, text="Especifica el número de filas que deben estar visibles.", bg='pale green',fg='brown',width='50',height='1', command=correct21).grid(row=3,column=3)
+            
+            Label(f33, text="Qué hace el comando padding?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f33, text="La etiqueta textual que se va a mostrar para el elemento", bg='pale green',fg='brown',width='50',height='1',command=incorrect22).grid(row=3,column=1)
+            Button(f33, text="Controla cómo los enlaces de clase integrados", bg='pale green',fg='brown',width='50',height='1', command=incorrect22).grid(row=3,column=2)
+            Button(f33, text="Especifica el relleno interno del widget", bg='pale green',fg='brown',width='50',height='1', command=correct22).grid(row=3,column=3)
+            
+            Label(f34, text="Qué hace el comando foreground?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f34, text="Especifica la imagen del elemento", bg='pale green',fg='brown',width='50',height='1',command=incorrect23).grid(row=3,column=1)
+            Button(f34, text="Especifica la fuente que se utilizará al añadir texto", bg='pale green',fg='brown',width='50',height='1', command=incorrect23).grid(row=3,column=2)
+            Button(f34, text="Especifica el color de primer plano del texto.", bg='pale green',fg='brown',width='50',height='1', command=correct23).grid(row=3,column=3)
+            
+            Label(f35, text="Qué hace el comando background?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f35, text="Especifica el color de primer plano del texto.", bg='pale green',fg='brown',width='50',height='1',command=incorrect24).grid(row=3,column=1)
+            Button(f35, text="Especifica la fuente que se utilizará al añadir texto.",bg='pale green', fg='brown',width='50',height='1', command=incorrect24).grid(row=3,column=2)
+            Button(f35, text="Especifica el color de fondo de la celda o elemento.", bg='pale green',fg='brown',width='50',height='1', command=correct24).grid(row=3,column=3)
+            
+            Label(f36, text="para que se usa el comando identify_element(x, y)?" ,font=("times roman",14), bg="yellow", fg="black").grid(row=2,column=2)
+            Button(f36, text="Retorna el identificador del elemento en la posición y.", bg='pale green',fg='brown',width='50',height='1',command=incorrect25).grid(row=3,column=1)
+            Button(f36, text="Zona de encabezado del árbol.", bg='pale green',fg='brown',width='50',height='1', command=incorrect25).grid(row=3,column=2)
+            Button(f36, text=" Retorna el elemento en la posición x, y.",bg='pale green', fg='brown',width='50',height='1', command=correct25).grid(row=3,column=3)
+            
+            
+            return total
+        
+        def correct():
+            global total
+            
+            Label(f1, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect():
+            Label(f1, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct2():
+            
+            global total
+            Label(f2, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect2():
+            Label(f2, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct3():
+            global total
+            Label(f3, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect3():
+            Label(f3, textmessagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct4():
+            global total
+            Label(f4, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect4():
+            Label(f4, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct5():
+            global total
+            Label(f5, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect5():
+            Label(f5, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct6():
+            global total
+            Label(f6, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect6():
+            Label(f6, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct7():
+            global total
+            Label(f7, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect7():
+            Label(f7, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct8():
+            global total
+            Label(f8, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect8():
+            Label(f8, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct9():
+            global total
+            Label(f9, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect9():
+            Label(f9, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct10():
+            global total
+            Label(f10, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect10():
+            Label(f10, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct11():
+            global total
+            Label(f11, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect11():
+            Label(f11, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct12():
+            global total
+            Label(f12, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect12():
+            Label(f12, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct13():
+            global total
+            Label(f13, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect13():
+            Label(f13, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct14():
+            global total
+            Label(f14, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect14():
+            Label(f14, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct15():
+            global total
+            Label(f15, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect15():
+            Label(f15, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct16():
+            global total
+            Label(f16, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect16():
+            Label(f16, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct17():
+            global total
+            Label(f17, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect17():
+            Label(f17, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct18():
+            global total
+            Label(f18, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect18():
+            Label(f18, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct19():
+            global total
+            Label(f19, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect19():
+            Label(f19, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct20():
+            global total
+            Label(f20, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect20():
+            Label(f20, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+        
+        def correct21():
+            global total
+            Label(f21, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect21():
+            Label(1, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct22():
+            global total
+            Label(f22, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect22():
+            Label(f22, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct23():
+            global total
+            Label(f23, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect23():
+            Label(f23, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct24():
+            global total
+            Label(f24, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect24():
+            Label(f24, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+        
+        def correct25():
+            global total
+            Label(f25, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect25():
+            Label(f25, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct26():
+            global total
+            Label(f26, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect26():
+            Label(f26, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct27():
+            global total
+            Label(f27, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect27():
+            Label(f27, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct28():
+            global total
+            Label(f28, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect28():
+            Label(f28, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct29():
+            global total
+            Label(f29, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect29():
+            Label(f29, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct30():
+            global total
+            Label(f30, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect30():
+            Label(f30, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+            
+        def correct31():
+            global total
+            Label(f31, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect31():
+            Label(f31, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct32():
+            global total
+            Label(f32, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect32():
+            Label(f32, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct33():
+            global total
+            Label(f33, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect33():
+            Label(f33, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct34():
+            global total
+            Label(f34, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect34():
+            Label(f34, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct35():
+            global total
+            Label(f35, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect35():
+            Label(f35, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def correct36():
+            global total
+            Label(f36, text=messagebox.showinfo(message="CORRECT ", title="aviso")).grid(row=1,column=2)
+            counter()
+            
+        def incorrect36():
+            Label(f36, text=messagebox.showinfo(message="INCORRECT", title="aviso")).grid(row=1,column=2)
+            
+        def counter():
+            global total
+            total['text']=str(int(total['text'])+1)
+        
+        
+        main(y)
+        
+        
+        n.pack()
+        
+        n.mainloop()
+    
+
+def db():
+    basedatos = pymysql.connect(
+        host="localhost",
+        user="root",
+        password="11082329J.",
+        db="juego"
+        )
+
+    fcursor=basedatos.cursor()
+     
+    sql="INSERT INTO login (user, password) VALUES ('{0}', '{1}')".format(nameuser.get(),passuser.get())
+   
+    
+    try:
+        fcursor.execute(sql)
+        basedatos.commit()
+        messagebox.showinfo(message="se ha registrado exitosamente", title="aviso")
+    except:
+        basedatos.rollback()
+        messagebox.showinfo(message="error al registrar \nVuelve a intentar", title="aviso")
+        
+    basedatos.close()
+    
+def validacion():
+    basedatos = pymysql.connect(
+        host="localhost",
+        user="root",
+        password="11082329J.",
+        db="juego"
+        )
+
+    fcursor=basedatos.cursor()
+    
+    fcursor.execute("SELECT password FROM login WHERE  user= '"+user.get()+"' and password= '"+password.get()+"'")
+    
+    if fcursor.fetchall():
+        messagebox.showinfo(title="inicio de seccion correcto", message="usuario y password correctos")
+    else:
+        messagebox.showinfo(title="inicio de seccion incorrecto", message="usuario y password incorrectos")
+        
+    basedatos.close()  
+    
+juego()
